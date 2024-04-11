@@ -7,7 +7,16 @@ const { formatTime } = require("../lib/date");
 const cityMap = {};
 cityMap[(cityMap[1] = "上海")] = 1;
 cityMap[(cityMap[2] = "北京")] = 2;
+cityMap[(cityMap[3] = "杭州")] = 3;
 cityMap[(cityMap[134] = "南昌")] = 134;
+cityMap[(cityMap[14] = "福州")] = 14;
+cityMap[(cityMap[17] = "西安")] = 17;
+cityMap[(cityMap[16] = "武汉")] = 16;
+cityMap[(cityMap[110] = "合肥")] = 110;
+cityMap[(cityMap[8] = "成都")] = 8;
+cityMap[(cityMap[9] = "重庆")] = 9;
+cityMap[(cityMap[4] = "广州")] = 4;
+cityMap[(cityMap[160] = "郑州")] = 160;
 
 let $order = process.argv[4].split("=")[1];
 
@@ -24,6 +33,11 @@ $order =
 
 const $city = process.argv[2].split("=")[1];
 const $keywords = process.argv[3].split("=")[1];
+
+// let $order = "";
+
+// const $city = "南昌";
+// const $keywords = "ktv";
 
 // 大众点评 接口地址
 const urlTemplate = `https://www.dianping.com/search/keyword/{city}/0_{keywords}/{order}p{pageNum}`;
@@ -63,25 +77,21 @@ async function getCityShopInfoList(city, keywords, pageNum) {
 
   const res = await getPageContent(url, {
     headers: {
-      accept:
-        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-      "accept-language": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7",
-      "cache-control": "max-age=0",
       "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-      "sec-ch-ua":
-        '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
-      "sec-ch-ua-mobile": "?0",
-      "sec-ch-ua-platform": '"Windows"',
-      "sec-fetch-dest": "document",
-      "sec-fetch-mode": "navigate",
-      "sec-fetch-site": "cross-site",
-      "sec-fetch-user": "?1",
-      "upgrade-insecure-requests": "1",
-      cookie:
-        "fspop=test; _lxsdk_cuid=18ec72de6fac8-02fe0bb9bcd48e-26001a51-1fa400-18ec72de6fac8; _lxsdk=18ec72de6fac8-02fe0bb9bcd48e-26001a51-1fa400-18ec72de6fac8; _hc.v=73a1137d-06c9-96f6-2ec8-5c1ae8d4bbf7.1712738658; WEBDFPID=27165ww1738v5595ywv4590x7yv5747u81vx27wuu3z979585y92w566-2028098665005-1712738665005AIQGAMIfd79fef3d01d5e9aadc18ccd4d0c95074184; ctu=6a3872b1f6016a45f7eadb503f47fe82f7403ee11440a6734fbf2292dfec06e4; s_ViewType=10; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1712738659,1712806570; cy=110; cye=hefei; qruuid=0cdb3b81-aaca-4ffe-9056-3a467b571060; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1712819495; _lxsdk_s=18ecbcbad3b-fb0-453-827%7C%7C623",
-      Referer: url,
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+      Accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+      "Accept-Language":
+        "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
+      Connection: "keep-alive",
+      Cookie:
+        "fspop=test; cy=134; cye=nanchang; _lx_utm=utm_source%3Dbaidu%26utm_medium%3Dorganic%26utm_term%3D%25E5%25A4%25A7%25E4%25BC%2597%25E7%2582%25B9%25E8%25AF%2584; _lxsdk_cuid=18ecc408dffc8-0a13b1169e3c5a-d535429-1fa400-18ecc408dffc8; _lxsdk_s=18ecc408dff-997-9f5-2e4%7C%7C94; _lxsdk=18ecc408dffc8-0a13b1169e3c5a-d535429-1fa400-18ecc408dffc8; _hc.v=b14bed35-c9a6-8004-8bfb-3af318185370.1712823767; WEBDFPID=x5z99z2x77yw547105z8zyv5z7vu739w81vxx59u06u9795861uuyx71-2028183794388-1712823794388MCCAKAE10f02007e9804b0b4cf483cebf1f9f513650; qruuid=f951761e-e8ab-4056-9f9c-81e73786fdb7; dper=02027422d1ebec9eff92ab466a70dd5d746de484393ab65664105c632a7e73949e0491f729f63daad5bc78cb113a1277b73d08cc0dfd787c443c00000000521f00002afdc055e3fa84cd162473d17ffcc43702c5fc40470ffcf6a16390845146128fc2ec08ced97c0d11a9b0750dc885cb4a; ll=7fd06e815b796be3df069dec7836c3df; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1712823850; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1712823943; s_ViewType=10",
+      "Sec-Fetch-Dest": "document",
+      "Sec-Fetch-Mode": "navigate",
+      "Sec-Fetch-Site": "cross-site",
+      "Sec-Fetch-User": "?1",
       "Referrer-Policy": "strict-origin-when-cross-origin",
+      Referer: url,
       method: "GET",
       body: null,
     },
@@ -137,19 +147,19 @@ function main() {
       data.forEach((e) => {
         map[e.id] = e;
       });
+
+      pageNum++;
+
+      if (pageNum >= 30) {
+        clearTimeout(timer);
+
+        writeFs(dataDir + `${keywords}-${cityMap[city]}.json`, map);
+        return;
+      }
+
+      timer = setTimeout(arguments.callee, Math.random() * 1000 * 15 + 5000);
     });
-
-    pageNum++;
-
-    if (pageNum >= 35) {
-      clearInterval(timer);
-
-      writeFs(dataDir + `${keywords}-${cityMap[city]}.json`, map);
-      return;
-    }
-
-    timer = setTimeout(arguments.callee, Math.random() * 1000 * 10 + 2000);
-  }, Math.random() * 1000 * 5 + 2000);
+  }, 1000);
 }
 
 main();
