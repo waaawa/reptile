@@ -59,6 +59,8 @@ async function getCityShopInfoList(city, keywords, pageNum) {
     order: $order,
   });
 
+  let shopList = [];
+
   const res = await getPageContent(url, {
     headers: {
       accept:
@@ -87,7 +89,7 @@ async function getCityShopInfoList(city, keywords, pageNum) {
 
   const $ = cheerio.load(res);
 
-  const shopList = $("#shop-all-list li").map((i, el) => {
+  shopList = $("#shop-all-list li").map((i, el) => {
     const shop = {
       id: $(el).find(".promo-icon a").attr("data-shopid"),
       name: $(el).find("h4").text(),
@@ -146,8 +148,8 @@ function main() {
       return;
     }
 
-    timer = setTimeout(arguments.callee, Math.random() * 1000 * 5);
-  }, Math.random() * 1000 * 5);
+    timer = setTimeout(arguments.callee, Math.random() * 1000 * 10 + 2000);
+  }, Math.random() * 1000 * 5 + 2000);
 }
 
 main();
